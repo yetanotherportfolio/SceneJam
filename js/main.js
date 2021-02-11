@@ -5,6 +5,7 @@ import TreeComp from './comp/tree.js'
 import SceneConfig from './scene.js'
 import Directory from './directory.js'
 import Game from './canvas/game.js'
+import init_watcher from './watcher.js'
 
 class UI {
     constructor () {
@@ -28,6 +29,11 @@ class UI {
             this
         )
         // this.game.update_scene(this.sceneCfg.get_scene(this.scene_id))
+    }
+
+    on_data_changed () {
+        this.tree.render(this.directory.get_folders())
+        this.asset.render('/', this.directory.get_files('/'))
     }
 
     on_directory_change (dirname, dirpath) {
@@ -199,5 +205,6 @@ function init () {
     }
 
     window.ui = new UI()
+    init_watcher()
 }
 init()

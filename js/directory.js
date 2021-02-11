@@ -1,5 +1,5 @@
 const config = {
-    assets: {
+    /*assets: {
         scene1: {
             images: [
                 'image1.png',
@@ -41,7 +41,7 @@ const config = {
         __: [
             'some-cfg.ini'
         ]
-    }
+    }*/
 }
 
 export default class Directory {
@@ -66,5 +66,37 @@ export default class Directory {
         if (dir.__ !== undefined) return dir.__
         else if (Array.isArray(dir)) return dir
         else return []
+    }
+
+    add_file (file, is_dir) {
+        const splitted = file.split('/')
+        let _config = config
+
+        for (const i in splitted) {
+            const _i = parseInt(i, 10)
+            const part = splitted[i]
+            if (_config[part] === undefined) {
+                if (_i === splitted.length - 2 && !is_dir) {
+                    _config[part] = []
+                } else if (_i === splitted.length - 1) {
+
+                    if (is_dir) {
+                        _config[part] = {}
+                    } else {
+                        if (Array.isArray(_config)) _config.push(part)
+                        else {
+                            if (_config.__ === undefined) _config.__ = []
+                            _config.__.push(part)
+                        }
+                    }
+                } else {
+                    _config[part] = {}
+                }
+            }
+            _config = _config[part]
+        }
+
+        // TODO
+        window.ui.on_data_changed()
     }
 }
