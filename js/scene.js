@@ -10,35 +10,35 @@ const config = {
             },
             assets: [
                 {
-                    name: "tower",
+                    name: 'tower',
                     x: 217,
                     y: 170,
-                    type: "image",
-                    src: "assets/scene1/images/image2.png",
+                    type: 'image',
+                    src: 'assets/scene1/images/image2.png',
                     flipX: false,
                     flipY: false,
                     scaleX: 1.0,
                     scaleY: 1.0,
                     alpha: 1.0,
-                    angle : 0,
+                    angle: 0,
                     depth: 0,
                     originX: 0.0,
                     originY: 0.0
                 },
                 {
-                    name: "skeleton",
+                    name: 'skeleton',
                     x: 169,
                     y: 416,
-                    type: "sprite",
-                    src: "assets/scene1/images/image3.png",
+                    type: 'sprite',
+                    src: 'assets/scene1/images/image3.png',
                     width: 64,
                     height: 64,
                     animations: {
-                        "idle": {name: "idle", frames: [5], frameRate: 8, repeat: -1},
-                        "walk": {name: "walk", frames: [0,1,2,3,4], frameRate: 8, repeat: -1},
-                        "run": {name: "run", frames: [3,4,5], frameRate: 8, repeat: -1},
+                        idle: { name: 'idle', frames: [5], frameRate: 8, repeat: -1 },
+                        walk: { name: 'walk', frames: [0, 1, 2, 3, 4], frameRate: 8, repeat: -1 },
+                        run: { name: 'run', frames: [3, 4, 5], frameRate: 8, repeat: -1 }
                     },
-                    start_anim: "walk",
+                    start_anim: 'walk',
                     flipX: false,
                     flipY: false,
                     scaleX: 1.0,
@@ -53,7 +53,7 @@ const config = {
                     name: 'container1',
                     x: 55,
                     y: 55,
-                    type: 'anchor',
+                    type: 'anchor'
 
                     // assets: [
                     //     {
