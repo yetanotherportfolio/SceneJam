@@ -3,8 +3,9 @@
   "version": "0.0.1b",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "npx serve ."
+    "test": "npm run lint",
+    "debug": "npx serve .",
+    "lint": "eslint js/"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
