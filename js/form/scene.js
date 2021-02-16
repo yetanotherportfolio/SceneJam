@@ -86,8 +86,8 @@ const basics = {
         tweens: new FieldDict({
             name: new Field('text', { required: true }),
             param: new Field(),
-            from: new Field('number'),
-            to: new Field('number'),
+            from: new Field('number', { step: 0.01 }),
+            to: new Field('number', { step: 0.01 }),
             ease: new FieldChoice({}, EaseTypes),
             duration: new Field('number', { min: 0 }, 1000),
             loop: new FieldNumBool(),

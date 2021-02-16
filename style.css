@@ -95,4 +95,7 @@ a.scene-asset-selected {
     border: 1px solid #777;
 }
 
-.assets { grid-area: assets; }
+.assets {
+    grid-area: assets;
+    overflow: auto;
+}

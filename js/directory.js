@@ -1,5 +1,5 @@
 const config = {
-    /*assets: {
+    /* assets: {
         scene1: {
             images: [
                 'image1.png',
@@ -41,7 +41,7 @@ const config = {
         __: [
             'some-cfg.ini'
         ]
-    }*/
+    } */
 }
 
 export default class Directory {
@@ -79,7 +79,6 @@ export default class Directory {
                 if (_i === splitted.length - 2 && !is_dir) {
                     _config[part] = []
                 } else if (_i === splitted.length - 1) {
-
                     if (is_dir) {
                         _config[part] = {}
                     } else {
