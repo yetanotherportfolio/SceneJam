@@ -1,5 +1,9 @@
-const config = {
-    /* assets: {
+const config = {}
+
+// HACK for local testing
+
+if (window.nw === undefined) {
+    config['assets'] = {
         scene1: {
             images: [
                 'image1.png',
@@ -41,7 +45,7 @@ const config = {
         __: [
             'some-cfg.ini'
         ]
-    } */
+    }
 }
 
 export default class Directory {
@@ -68,8 +72,42 @@ export default class Directory {
         else return []
     }
 
-    add_file (file, is_dir) {
-        const splitted = file.split('/')
+    remove_file (path, is_dir) {
+        const splitted = path.split('/')
+        let _config = config
+
+        for (const i in splitted) {
+            const _i = parseInt(i, 10)
+            const part = splitted[i]
+
+            if (_i === splitted.length - 1) {
+
+                if (Array.isArray(_config)) {
+                    const j = _config.indexOf(part)
+                    if (j >= 0) {
+                        _config.splice(j, 1)
+                    }
+                } else {
+                    if (is_dir) {
+                        delete _config[part]
+                    } else {
+                        const j = _config.__.indexOf(part)
+                        if (j >= 0) {
+                            _config.__.splice(j, 1)
+                        }
+                    }
+                }
+            }
+
+            _config = _config[part]
+        }
+
+        // TODO
+        window.ui.on_data_changed()
+    }
+
+    add_file (path, is_dir) {
+        const splitted = path.split('/')
         let _config = config
 
         for (const i in splitted) {

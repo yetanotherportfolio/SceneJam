@@ -14,10 +14,13 @@ class Watcher {
         const chokidar = require('chokidar')
         const fs = require('fs')
         this.watcher = chokidar.watch(this.path).on('all', (event, path) => {
-            //if (!this.startup) console.log('update', path, event)
-            console.log(path, event)
-
-            window.ui.directory.add_file(path, fs.lstatSync(path).isDirectory())
+            if (event === 'unlink') {
+                window.ui.directory.remove_file(path, false)
+            } else if (event === 'unlinkDir') {
+                window.ui.directory.remove_file(path, true)
+            } else {
+                window.ui.directory.add_file(path, fs.lstatSync(path).isDirectory())
+            }
         })
     }
 
