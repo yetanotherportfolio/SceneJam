@@ -3,7 +3,7 @@ const config = {}
 // HACK for local testing
 
 if (window.nw === undefined) {
-    config['assets'] = {
+    config.assets = {
         scene1: {
             images: [
                 'image1.png',
@@ -81,7 +81,6 @@ export default class Directory {
             const part = splitted[i]
 
             if (_i === splitted.length - 1) {
-
                 if (Array.isArray(_config)) {
                     const j = _config.indexOf(part)
                     if (j >= 0) {
