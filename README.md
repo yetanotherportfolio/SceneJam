@@ -25,4 +25,6 @@ $ npm run debug
 - example project
 - actual packaging for Linux, Mac and Windows
 - asset groups
-- "Prefab"
+- "prefab"
+- documentation
+- video demo
