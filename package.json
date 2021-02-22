@@ -1,11 +1,33 @@
 {
   "name": "scenejam",
+  "product_string": "scenejam",
+  "description": "Simple, engine agnostic, 2d scene editor",
   "version": "0.0.1b",
   "main": "index.html",
   "scripts": {
     "test": "npm run lint",
     "debug": "npx serve .",
-    "lint": "eslint js/"
+    "lint": "eslint js/",
+    "dist": "build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ ."
+  },
+  "build": {
+    "appId": "io.github.yetanotherportfolio.scenejam",
+    "nwVersion": "0.14.7",
+    "packed": true,
+    "targets": ["zip"],
+    "strippedProperties": [
+      "build"
+    ],
+    "win": {
+      "productName": "SceneJam"
+    },
+    "mac": {
+      "displayName": "SceneJam",
+      "plistStrings": {
+        "CFBundleIdentifier": "io.github.yetanotherportfolio.scenejam.modified",
+        "CFBundleDocumentTypes": []
+      }
+    }
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -13,7 +35,8 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "nwjs-builder-phoenix": "^1.15.0"
   },
   "dependencies": {
     "chokidar": "^3.5.1"
