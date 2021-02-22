@@ -13,6 +13,10 @@ export default class SceneComp extends Component {
             this.on_scene_asset_add(ev.target)
         })
 
+        this.on('.scene-container-add', 'click', (ev) => {
+            this.on_scene_container_add(ev.target)
+        })
+
         this.on('.scene-asset', 'click', (ev) => {
             this.on_asset_click(
                 ev.target.dataset.sceneid,
@@ -47,6 +51,12 @@ export default class SceneComp extends Component {
         this.ui.add_asset_to_scene(scene_id)
     }
 
+    on_scene_container_add (elem) {
+        const scene_id = elem.dataset.scene
+        const asset_id = elem.dataset.assetId
+        this.ui.add_asset_to_container(scene_id, asset_id)
+    }
+
     on_asset_click (scene_id, asset_id, parent) {
         if (parent !== 'undefined') this.ui.on_activate_asset(scene_id, asset_id, parent)
         else this.ui.on_activate_asset(scene_id, asset_id)
@@ -55,14 +65,19 @@ export default class SceneComp extends Component {
     get_assets (scene_id, obj, parent) {
         const assets = []
         for (const k in obj) {
-            const children = this.get_assets(
-                scene_id,
-                obj[k].assets,
-                obj[k].name
-            )
-            let children_txt = '<ul>'
-            children_txt += children.map(asset_tpl).join('\n')
-            children_txt += '</ul>'
+            let children_txt = ''
+
+            if (obj[k].type === 'container') {
+                const children = this.get_assets(
+                    scene_id,
+                    obj[k].assets,
+                    obj[k].name
+                )
+                children_txt = '<ul>'
+                children_txt += children.map(asset_tpl).join('\n')
+                children_txt += `<li><button data-scene="${scene_id}" data-asset-id="${obj[k].name}" class="scene-container-add">+</button></li>`
+                children_txt += '</ul>'
+            }
 
             assets.push({
                 scene: scene_id,

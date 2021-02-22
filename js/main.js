@@ -124,8 +124,17 @@ class UI {
         this.game.restart()
     }
 
+    add_asset_to_container (scene_id, container_id) {
+        this.sceneCfg.add_asset_to_container(scene_id, container_id, 'CHANGE ME')
+        this.scene.render()
+        this.game.restart()
+    }
+
     remove_asset_from_scene (scene_id, asset_id) {
-        this.sceneCfg.remove_asset(scene_id, asset_id)
+        if (!this.sceneCfg.remove_asset(scene_id, asset_id)) {
+            console.error('Could not remove asset, asset not found')
+            return
+        }
         this.scene.render()
         this.property.render(this.scene_id, null)
 
@@ -135,9 +144,7 @@ class UI {
     }
 
     remove_scene (scene_id) {
-        console.log('remove scene', scene_id)
         this.sceneCfg.remove_scene(scene_id)
-        // TODO
         this.scene.render()
     }
 

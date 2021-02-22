@@ -53,7 +53,7 @@ const config = {
                     name: 'container1',
                     x: 55,
                     y: 55,
-                    type: 'anchor'
+                    type: 'container'
 
                     // assets: [
                     //     {
@@ -208,6 +208,13 @@ export default class SceneConfig {
         for (const i in assets) {
             if (assets[i].name === name) {
                 return assets[i]
+            } else {
+                const asset = this.get_asset_in_container(
+                    scene,
+                    name,
+                    assets[i].name
+                )
+                if (asset) return asset
             }
         }
     }
@@ -247,8 +254,30 @@ export default class SceneConfig {
             this.update_asset(scene_id, asset.name, 'src', src)
         }
 
-        console.log(asset.name, scene_id, asset.name, type, src)
         return asset
+    }
+
+    add_asset_to_container (scene_id, container_id, asset_id, type, src) {
+        const container = this.get_asset(scene_id, container_id)
+        if (container === undefined) {
+            console.error('Container not found', scene_id, container_id)
+            return
+        }
+
+        const asset = {}
+        Object.assign(asset, templates.base)
+        asset.name = this.get_unique_asset_name(scene_id, asset_id)
+        asset.parent = container_id
+
+        if (!container.assets) container.assets = []
+        container.assets.push(asset)
+
+        if (type) {
+            this.update_asset(scene_id, asset.name, 'type', type)
+        }
+        if (src) {
+            this.update_asset(scene_id, asset.name, 'src', src)
+        }
     }
 
     _apply_prop (asset, tpl) {
@@ -273,7 +302,6 @@ export default class SceneConfig {
         }
 
         for (const prop in templates[asset.type]) {
-            console.log(new_type, templates[new_type])
             if (templates[new_type][prop] === undefined && templates.base[prop] === undefined) {
                 delete asset[prop]
             }
@@ -295,6 +323,7 @@ export default class SceneConfig {
     }
 
     reorder_asset (scene_id, asset_id, is_up) {
+        // TODO fix reordering inside container
         const assets = config.scenes[scene_id].assets
         var index = -1
         var asset = null
@@ -322,22 +351,32 @@ export default class SceneConfig {
         config.game[prop] = value
     }
 
-    remove_asset (scene, name) {
-        const assets = config.scenes[scene].assets
+    remove_from_list (arr, name) {
         let index = -1
-        for (const i in assets) {
-            if (assets[i].name === name) {
+        for (const i in arr) {
+            if (arr[i].name === name) {
                 index = i
                 break
             }
         }
 
         if (index >= 0) {
-            assets.splice(index, 1)
+            arr.splice(index, 1)
             return true
         }
 
         return false
+    }
+
+    remove_asset (scene, name) {
+        const asset = this.get_asset(scene, name)
+        if (asset === undefined) return false
+
+        if (asset.parent !== undefined) {
+            const container = this.get_asset(scene, asset.parent)
+            return this.remove_from_list(container.assets, name)
+        }
+        return this.remove_from_list(config.scenes[scene].assets, name)
     }
 
     remove_scene (scene_id) {
