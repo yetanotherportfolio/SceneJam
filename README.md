@@ -24,7 +24,7 @@ $ npm run debug
 - cookie cutter
 - example project
 - actual packaging for Linux, Mac and Windows
-- asset groups
+- better asset container handling
 - "prefab"
 - documentation
 - video demo
