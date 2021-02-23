@@ -322,25 +322,34 @@ export default class SceneConfig {
         return asset.name
     }
 
-    reorder_asset (scene_id, asset_id, is_up) {
-        // TODO fix reordering inside container
-        const assets = config.scenes[scene_id].assets
+    reorder_from_list (arr, asset_id, is_up) {
         var index = -1
         var asset = null
-        for (const i in assets) {
-            if (assets[i].name === asset_id) {
+        for (const i in arr) {
+            if (arr[i].name === asset_id) {
                 index = parseInt(i, 10)
-                asset = assets[i]
+                asset = arr[i]
                 break
             }
         }
 
         if (asset === null || index === -1) return
         if (!is_up && index - 1 < 0) return
-        if (is_up && index + 1 >= assets.length) return
+        if (is_up && index + 1 >= arr.length) return
 
-        assets.splice(index, 1)
-        assets.splice(is_up ? index + 1 : index - 1, 0, asset)
+        arr.splice(index, 1)
+        arr.splice(is_up ? index + 1 : index - 1, 0, asset)
+    }
+
+    reorder_asset (scene_id, asset_id, is_up) {
+        const asset = this.get_asset(scene_id, asset_id)
+        if (asset === undefined) return false
+
+        if (asset.parent !== undefined) {
+            const container = this.get_asset(scene_id, asset.parent)
+            return this.reorder_from_list(container.assets, asset_id, is_up)
+        }
+        return this.reorder_from_list(config.scenes[scene_id].assets, asset_id, is_up)
     }
 
     update_scene_config (scene_id, prop, value) {
