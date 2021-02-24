@@ -14,6 +14,8 @@ class Watcher {
         const chokidar = require('chokidar')
         const fs = require('fs')
         this.watcher = chokidar.watch(this.path).on('all', (event, path) => {
+            path = path.replaceAll('\\', '/')
+
             if (event === 'unlink') {
                 window.ui.directory.remove_file(path, false)
             } else if (event === 'unlinkDir') {
