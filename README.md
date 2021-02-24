@@ -23,7 +23,6 @@ $ npm run debug
 - micro lib for Phaser
 - cookie cutter
 - example project
-- actual packaging for Linux, Mac and Windows
 - better asset container handling
 - "prefab"
 - documentation

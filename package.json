@@ -12,8 +12,8 @@
   },
   "build": {
     "appId": "io.github.yetanotherportfolio.scenejam",
-    "nwVersion": "0.14.7",
-    "packed": true,
+    "nwVersion": "0.51.2",
+    "packed": false,
     "targets": ["zip"],
     "strippedProperties": [
       "build"
