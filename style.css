@@ -66,6 +66,7 @@ a.scene-asset-selected {
 .property {
   padding: 5px;
   min-width: 250px;
+  overflow-y: auto;
 }
 
 .property-row {

@@ -8,7 +8,7 @@
     "test": "npm run lint",
     "debug": "npx serve .",
     "lint": "eslint js/",
-    "dist": "build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ ."
+    "dist": "build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ --concurrent ."
   },
   "build": {
     "appId": "io.github.yetanotherportfolio.scenejam",
