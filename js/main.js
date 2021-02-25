@@ -19,7 +19,6 @@ class UI {
 
         this.scene_id = this.sceneCfg.get_scene_names()[0]
 
-        // this.property.render(this.scene_id, this.sceneCfg.get_asset(this.scene_id, "Asset1"))
         this.scene.render()
         this.tree.render(this.directory.get_folders())
         this.asset.render('/', this.directory.get_files('/'))
@@ -28,7 +27,13 @@ class UI {
             document.querySelector('.canvas canvas'),
             this
         )
-        // this.game.update_scene(this.sceneCfg.get_scene(this.scene_id))
+    }
+
+    on_dir_changed (path) {
+        this.directory.clear()
+        window.change_path(path)
+        this.tree.render(this.directory.get_folders())
+        this.asset.render('/', this.directory.get_files('/'))
     }
 
     on_data_changed () {

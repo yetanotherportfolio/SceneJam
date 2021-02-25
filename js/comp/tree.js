@@ -8,6 +8,19 @@ export default class TreeComp extends Component {
         this.on('a.tree-name', 'click', (ev) => {
             this.on_name_click(ev.target)
         })
+
+        this.on('.tree-dir', 'change', (ev) => {
+            this.on_dir_changed(ev.target)
+        })
+    }
+
+    on_dir_changed (el) {
+        if (el.files.length === 0) {
+            console.log('NO files selected')
+            return
+        }
+
+        this.ui.on_dir_changed(el.files[0].path)
     }
 
     on_name_click (el) {
@@ -40,7 +53,11 @@ export default class TreeComp extends Component {
     }
 
     tpl (obj) {
-        return this._render(obj, '')
+        let tpl = this._render(obj, '')
+        if (window.nw !== undefined) {
+            tpl = '<input type="file" class="tree-dir" nwdirectory nwworkingdir="./assets">' + tpl
+        }
+        return tpl
     }
 }
 

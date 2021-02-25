@@ -22,6 +22,12 @@ export default class Game {
 
         this.loaded = {}
         this.ui = ui
+        this.base_url = ''
+    }
+
+    set_base_url (url) {
+        this.base_url = url
+        this.get_scene().load.setBaseURL(this.base_url)
     }
 
     get_scene () {
@@ -77,6 +83,8 @@ export default class Game {
     preload () {
         const scene = this.get_scene()
         scene.load.image('editor-arrows', 'assets/editor/arrows.svg')
+
+        if (this.base_url) this.get_scene().load.setBaseURL(this.base_url)
 
         // XXX
         const game_conf = this.ui.sceneCfg.get_game_config()

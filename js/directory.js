@@ -72,6 +72,12 @@ export default class Directory {
         else return []
     }
 
+    clear () {
+        for (const k in config) {
+            delete config[k]
+        }
+    }
+
     remove_file (path, is_dir) {
         const splitted = path.split('/')
         let _config = config
