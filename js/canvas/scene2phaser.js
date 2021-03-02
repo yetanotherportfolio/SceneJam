@@ -45,6 +45,8 @@ const Scene2Phaser = {
     },
 
     add: function (cfg, scene) {
+        if (cfg.load_only) return
+
         let asset = null
         if (cfg.type === 'image') {
             asset = scene.add.image(cfg.x, cfg.y, get_hash_key(cfg))
@@ -167,12 +169,8 @@ const Scene2Phaser = {
                 cfg.originX || 0,
                 cfg.originY || 0
             )
-        } else if (
-            prop === 'type' || prop === 'src' || prop === 'tweens' || prop === 'start_tween' ||
-                prop === 'animations' || prop === 'width' || prop === 'height') {
-            return true
         }
-        return false
+        return true
     }
 }
 export default Scene2Phaser
