@@ -79,14 +79,15 @@ export class Field {
 }
 
 export class FieldBool extends Field {
-    constructor (params, value) {
-        super('checkbox', params, value)
+    constructor (params, value, usedefault) {
+        super('checkbox', params, value, usedefault)
     }
 
     copy () {
         return new this.constructor(
             this.params,
-            this.value
+            this.value,
+            this.usedefault
         )
     }
 

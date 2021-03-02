@@ -80,8 +80,8 @@ const Scene2Phaser = {
                 asset.setOrigin(0.5)
             } else if (asset.setOrigin !== undefined) {
                 asset.setOrigin(
-                    parseFloat('' + (cfg.originX || 0)),
-                    parseFloat('' + (cfg.originY || 0))
+                    cfg.originX || 0,
+                    cfg.originY || 0
                 )
             }
 
@@ -89,10 +89,11 @@ const Scene2Phaser = {
             asset.flipY = cfg.flipY
 
             if (cfg.depth) asset.depth = cfg.depth
-            if (cfg.scaleX) asset.scaleX = parseFloat('' + cfg.scaleX)
-            if (cfg.scaleY) asset.scaleY = parseFloat('' + cfg.scaleY)
-            if (cfg.alpha) asset.alpha = parseFloat('' + cfg.alpha)
-            if (cfg.angle) asset.angle = parseFloat('' + cfg.angle)
+            if (cfg.scaleX !== undefined) asset.scaleX = cfg.scaleX
+            if (cfg.scaleY !== undefined) asset.scaleY = cfg.scaleY
+            if (cfg.alpha !== undefined) asset.alpha = cfg.alpha
+            if (cfg.visible === false) asset.visible = false
+            if (cfg.angle !== undefined) asset.angle = cfg.angle
             if (cfg.animations) {
                 for (const anim_key in cfg.animations) {
                     const anim = cfg.animations[anim_key]
@@ -150,10 +151,11 @@ const Scene2Phaser = {
         else if (prop === 'depth') asset.depth = cfg.depth
         else if (prop === 'flipX') asset.flipX = cfg.flipX
         else if (prop === 'flipY') asset.flipY = cfg.flipY
-        else if (prop === 'scaleX') asset.scaleX = parseFloat('' + cfg.scaleX)
-        else if (prop === 'scaleY') asset.scaleY = parseFloat('' + cfg.scaleY)
-        else if (prop === 'alpha') asset.alpha = parseFloat('' + cfg.alpha)
-        else if (prop === 'angle') asset.angle = parseFloat('' + cfg.angle)
+        else if (prop === 'scaleX') asset.scaleX = cfg.scaleX
+        else if (prop === 'scaleY') asset.scaleY = cfg.scaleY
+        else if (prop === 'alpha') asset.alpha = cfg.alpha
+        else if (prop === 'visible') asset.setVisible(cfg.visible)
+        else if (prop === 'angle') asset.angle = cfg.angle
         else if (prop === 'start_anim') {
             if (cfg.start_anim) asset.play(cfg.start_anim)
             else asset.stop()
@@ -162,8 +164,8 @@ const Scene2Phaser = {
         else if (prop === 'style') asset.setStyle(cfg.style)
         else if (prop === 'originX' || prop === 'originY') {
             asset.setOrigin(
-                parseFloat('' + (cfg.originX || 0)),
-                parseFloat('' + (cfg.originY || 0))
+                cfg.originX || 0,
+                cfg.originY || 0
             )
         } else if (
             prop === 'type' || prop === 'src' || prop === 'tweens' || prop === 'start_tween' ||

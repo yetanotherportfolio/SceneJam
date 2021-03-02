@@ -24,6 +24,6 @@ $ npm run debug
 - cookie cutter
 - example project
 - better asset container handling
-- "prefab"
+- add load only bool
 - documentation
 - video demo

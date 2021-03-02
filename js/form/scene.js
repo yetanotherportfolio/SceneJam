@@ -110,7 +110,8 @@ const basics = {
         angle: new Field('number', {}, 0),
         depth: new Field('number', {}, 0),
         originX: new Field('number', { min: 0, max: 1, step: 0.1 }, 0.0),
-        originY: new Field('number', { min: 0, max: 1, step: 0.1 }, 0.0)
+        originY: new Field('number', { min: 0, max: 1, step: 0.1 }, 0.0),
+        visible: new FieldBool({}, true, true)
     }
 }
 
