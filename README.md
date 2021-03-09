@@ -9,9 +9,10 @@ Support:
  - setup game width/height
  - setup scenes background color
 
+![Screenshot](/screenshots/0_0_1b.gif)
+
 An example using the [Phaser Loader](https://github.com/yetanotherportfolio/SceneJamPhaserLib) can be found [here](https://github.com/yetanotherportfolio/SceneJamPhaserExample).
 
-![Screenshot](/screenshots/0_0_1b.gif)
 
 ## RUN
 using [NW.js](https://nwjs.io/)
