@@ -19,13 +19,15 @@ const Scene2Phaser = {
             // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Loader.FileTypes.html#.ImageFrameConfig
             const frame_cfg = { frameWidth: Number.MAX_VALUE }
             const _w = parseInt(cfg.width, 10)
-            if (_w !== 0) {
+            if (!isNaN(_w) && _w !== 0) {
                 frame_cfg.frameWidth = _w
             }
             const _h = parseInt(cfg.height, 10)
-            if (_h !== 0) {
+            if (!isNaN(_h) && _h !== 0) {
                 frame_cfg.frameHeight = _h
             }
+
+            console.log(frame_cfg, _w, _h)
 
             // https://photonstorm.github.io/phaser3-docs/Phaser.Loader.LoaderPlugin.html#spritesheet__anchor
             scene.load.spritesheet(

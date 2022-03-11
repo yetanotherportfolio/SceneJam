@@ -74,6 +74,7 @@ export class Field {
         if (this.type === 'number') {
             const num = subelem.valueAsNumber
             if (!isNaN(num)) return num
+            else return 0
         } else return subelem.value
     }
 }

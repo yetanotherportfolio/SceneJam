@@ -34,7 +34,6 @@ export default class MagicForm {
             elem.addEventListener('change', (evt) => {
                 const form_name = evt.target.dataset.formName
                 const input_name = evt.target.dataset.formInputName
-
                 this.update_values()
                 if (this.cb) {
                     let k = null
