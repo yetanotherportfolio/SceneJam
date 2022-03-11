@@ -111,7 +111,7 @@ export default class Directory {
         window.ui.on_data_changed()
     }
 
-    add_file (path, is_dir) {
+    add_file (path, is_dir, full_path) {
         const splitted = path.split('/')
         let _config = config
 
@@ -136,6 +136,21 @@ export default class Directory {
                 }
             }
             _config = _config[part]
+        }
+
+        if (!is_dir && path == 'scenecfg.json') {
+            console.log('opening', path)
+
+            const fs = require('fs')
+
+            fs.readFile(full_path, 'utf8' , (err, data) => {
+                if (err) {
+                    console.error(err)
+                    return
+                }
+
+                window.ui.on_import (data)
+            })
         }
 
         // TODO

@@ -31,7 +31,7 @@ class Watcher {
             } else if (event === 'unlinkDir') {
                 window.ui.directory.remove_file(short_path || full_path, true)
             } else {
-                window.ui.directory.add_file(short_path || full_path, fs.lstatSync(full_path).isDirectory())
+                window.ui.directory.add_file(short_path || full_path, fs.lstatSync(full_path).isDirectory(), full_path)
             }
         })
     }
