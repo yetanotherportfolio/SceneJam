@@ -6,6 +6,7 @@ import SceneConfig from './scene.js'
 import Directory from './directory.js'
 import Game from './canvas/game.js'
 import init_watcher from './watcher.js'
+import SaveState from './savestate.js'
 
 class UI {
     constructor () {
@@ -16,6 +17,8 @@ class UI {
 
         this.sceneCfg = new SceneConfig()
         this.directory = new Directory()
+
+        this.save_state = new SaveState(this)
 
         this.scene_id = this.sceneCfg.get_scene_names()[0]
 
@@ -124,6 +127,7 @@ class UI {
         }
 
         this.sceneCfg.add_asset(scene_id || this.scene_id, asset_id, type, src)
+        this.save_state.set_need_save()
         this.scene.render()
 
         this.game.restart()
@@ -131,6 +135,7 @@ class UI {
 
     add_asset_to_container (scene_id, container_id) {
         this.sceneCfg.add_asset_to_container(scene_id, container_id, 'CHANGE ME')
+        this.save_state.set_need_save()
         this.scene.render()
         this.game.restart()
     }
@@ -150,6 +155,7 @@ class UI {
 
     remove_scene (scene_id) {
         this.sceneCfg.remove_scene(scene_id)
+        this.save_state.set_need_save()
         this.scene.render()
     }
 
@@ -169,6 +175,7 @@ class UI {
     }
 
     update_asset (scene_id, asset_id, prop, value, update_game) {
+        this.save_state.set_need_save()
         const id = this.sceneCfg.update_asset(scene_id, asset_id, prop, value)
         if (id !== undefined) {
             this.on_activate_asset(scene_id, id)
@@ -192,16 +199,19 @@ class UI {
 
     update_scene (scene_id, prop, value) {
         this.sceneCfg.update_scene_config(scene_id, prop, value)
+        this.save_state.set_need_save()
         this.game.restart()
     }
 
     update_game (prop, value) {
         this.sceneCfg.update_game_config(prop, value)
+        this.save_state.set_need_save()
         this.game.restart()
     }
 
     add_scene () {
         this.scene_id = this.sceneCfg.add_scene('scene')
+        this.save_state.set_need_save()
 
         this.scene.render()
         this.game.restart()

@@ -138,7 +138,7 @@ export default class Directory {
             _config = _config[part]
         }
 
-        if (!is_dir && path == 'scenecfg.json') {
+        if (!is_dir && path == 'scenecfg.json' && !window.ui.save_state.is_loaded) {
             console.log('opening', path)
 
             const fs = require('fs')
@@ -149,7 +149,9 @@ export default class Directory {
                     return
                 }
 
-                window.ui.on_import (data)
+                window.ui.save_state.is_loaded = true
+                window.ui.save_state.path = full_path
+                window.ui.on_import(data)
             })
         }
 

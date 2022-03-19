@@ -40,3 +40,11 @@ $ npm run dist
 The project is **very WIP**, but still kinda usable.
 
 My goal is to make something that would help me/other save times during gamejams.
+
+
+## TODO
+- Save button
+- tween and anim play now button
+- Debug only flag for asset ( That don't even load it ?)
+- make lib of game micro lib and use it here
+- Global lint cleanup
