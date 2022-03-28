@@ -4,8 +4,8 @@ import MagicForm from './form.js'
 export class Field {
     constructor (type, params, value, usedefault) {
         this.type = type || 'text'
-        this.value = value || ''
-        this.usedefault = usedefault !== undefined
+        this.value = value || (this.type == 'number' ? 0 : '')
+        this.usedefault = usedefault === undefined ? false : usedefault
 
         this.params = {}
         if (params) Object.assign(this.params, params)
@@ -159,83 +159,6 @@ export class FieldChoice extends Field {
     }
 }
 
-/* export class FieldArray {
-    constructor (form) {
-        this.form = form
-        this.forms = []
-    }
-
-    copy () {
-        let f = new FieldArray()
-        f.form = this.form
-        f.forms = this.forms
-        return f
-    }
-
-    get_sub_name (name, i) {
-        return name + "-" + i
-    }
-
-    render (form_name, name, _values) {
-        let content = ""
-        let values = _values || []
-
-        for (let i in this.forms) {
-            const sub_name = this.get_sub_name(name, i)
-            if (values[i]) this.forms[i].values = values[i]
-            let form_content = this.forms[i].render(form_name, sub_name)
-            if (!form_content) continue
-            content += `<div class="form-array-container ${form_name}-${sub_name}-container">
-                    <div>${form_content}</div><div>
-                    <button class="form-array-remove"
-                            data-array-i="${i}"
-                            data-array-name="${name}">remove</button></div></div>`
-        }
-
-        return `<div class="${form_name} ${form_name}-container form-container">
-            <div class="${form_name}-controls form-controls">${name}
-                <button class="${form_name}-add form-array-add"
-                 data-form-name="${form_name}"
-                 data-form-array-name="${name}">add</button>
-            </div>
-            <div class="${form_name}-content form-content">${content}</div>
-            </div>`
-    }
-
-    validate (elem, form_name, name) {
-        let values = []
-        for (let i in this.forms) {
-            values.push(this.forms[i].validate(
-                elem
-            ))
-        }
-        return values
-    }
-
-    on_array_add (_name) {
-        let i = this.forms.length
-
-        let form_copy = {}
-        for (let name in this.form) {
-            form_copy[name] = this.form[name].copy()
-        }
-
-        this.forms.push(
-            new MagicForm(
-                null,
-                form_copy,
-                this.get_sub_name(_name, i),
-                {}
-            )
-        )
-    }
-
-    array_remove (index, values) {
-        this.forms.splice(index, 1)
-        values.splice(index, 1)
-    }
-} */
-
 export class FieldDict {
     constructor (form, key) {
         this.form = form
@@ -300,9 +223,16 @@ export class FieldDict {
     validate (elem, form_name, name) {
         const values = {}
         for (const k in this.forms) {
-            const val = this.forms[k].validate(
-                elem
-            )
+            var val = {}
+            var _values = this.forms[k].validate(elem)
+            for (const l in _values) {
+                const form = this.forms[k].form[l]
+                if (form.usedefault) {
+                    val[l] = _values[l]
+                } else if (form.value !== _values[l]) {
+                    val[l] = _values[l]
+                }
+            }
             values[val[this.key]] = val
         }
         return values

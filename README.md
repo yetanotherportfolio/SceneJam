@@ -48,3 +48,7 @@ My goal is to make something that would help me/other save times during gamejams
 - Debug only flag for asset ( That don't even load it ?)
 - make lib of game micro lib and use it here
 - Global lint cleanup
+- de-doubling file bug
+- move up-down bug
+- deplicate object button
+- windown scale
