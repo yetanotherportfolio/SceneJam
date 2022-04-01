@@ -26,6 +26,37 @@ const config = {
                     originY: 0.0
                 },
                 {
+                    "name": "particle",
+                    "x": 201,
+                    "y": 419,
+                    "type": "particle",
+                    "tweens": {},
+                    "src": "/assets/scene1/particle.png",
+                    "flipX": false,
+                    "flipY": false,
+                    "visible": true,
+                    "load_only": false,
+                    "params": {
+                        "angle": {
+                            "param": "angle",
+                            "min": -80,
+                            "max": -100
+                        },
+                        "speed": {
+                            "param": "speed",
+                            "min": 10,
+                            "max": 100
+                        },
+                        "scale": {
+                            "param": "scale",
+                            "start": 0.8,
+                            "end": 0.1
+                        }
+                    },
+                    "blendMode": "SKIP_CHECK",
+                    "frequency": 200
+                },
+                {
                     name: 'skeleton',
                     x: 169,
                     y: 416,
@@ -49,11 +80,11 @@ const config = {
                     originX: 0.0,
                     originY: 0.0
                 },
-                {
-                    name: 'container1',
-                    x: 55,
-                    y: 55,
-                    type: 'container'
+                // {
+                //     name: 'container1',
+                //     x: 55,
+                //     y: 55,
+                //     type: 'container'
 
                     // assets: [
                     //     {
@@ -95,7 +126,7 @@ const config = {
                         }
                     },
                     start_tween: "" */
-                }
+                // }
             ]
         }
     }

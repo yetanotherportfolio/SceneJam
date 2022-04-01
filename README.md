@@ -52,3 +52,4 @@ My goal is to make something that would help me/other save times during gamejams
 - move up-down bug
 - deplicate object button
 - windown scale
+- show thumbnail of stuff in bottom asset window
