@@ -184,6 +184,14 @@ export class FieldDict {
         return name.split('-')[1]
     }
 
+    add_event_handlers (elem) {
+        for (const i in this.forms) {
+            if (this.forms[i].add_event_handlers !== undefined) {
+                this.forms[i].add_event_handlers(elem)
+            }
+        }
+    }
+
     render (form_name, name, _values) {
         let content = ''
         const values = []
@@ -256,5 +264,37 @@ export class FieldDict {
     array_remove (index, values) {
         if (values) delete values[this.forms[index].values[this.key]]
         this.forms.splice(index, 1)
+    }
+}
+
+export class ButtonField {
+    constructor (text, callback) {
+        this.text = text
+        this.callback = callback
+        this.id = null
+        this.elem = null
+    }
+
+    copy () {
+        return new this.constructor(
+            this.text,
+            this.callback
+        )
+    }
+
+    on_pressed (data) {
+        this.callback(data)
+    }
+
+    render (form_name, name, value) {
+        this.id = `${form_name}-${name}`
+        return `<p><button id=${this.id}>${this.text}</button></p>`
+    }
+
+    add_event_handlers (elem) {
+        this.elem = elem.querySelector(`#${this.id}`)
+        this.elem.addEventListener('click', (evt) => {
+            this.on_pressed(evt)
+        })
     }
 }

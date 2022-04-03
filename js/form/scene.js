@@ -1,4 +1,4 @@
-import { Field, FieldChoice, FieldBool, FieldNumBool, FieldJSON, FieldDict } from './field.js'
+import { Field, FieldChoice, FieldBool, FieldNumBool, FieldJSON, FieldDict, ButtonField } from './field.js'
 
 const EaseTypes = [
     'Linear',
@@ -91,7 +91,8 @@ const basics = {
             ease: new FieldChoice({}, EaseTypes),
             duration: new Field('number', { min: 0 }, 1000),
             loop: new FieldNumBool(),
-            yoyo: new FieldBool({}, false)
+            yoyo: new FieldBool({}, false),
+            play: new ButtonField('play', function (data) {console.log("pressed!", data)})
         }, 'name'),
         start_tween: new Field()
 

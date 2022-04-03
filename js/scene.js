@@ -15,6 +15,17 @@ const config = {
                     y: 170,
                     type: 'image',
                     src: 'assets/scene1/images/image2.png',
+                    tweens: {
+                        hide: {
+                            name: "hide",
+                            param: "x",
+                            from: 217,
+                            to: 600,
+                            ease: "Back.easeInOut",
+                            loop: 0,
+                            yoyo: false
+                        }
+                    },
                     flipX: false,
                     flipY: false,
                     scaleX: 1.0,
@@ -26,35 +37,29 @@ const config = {
                     originY: 0.0
                 },
                 {
-                    "name": "particle",
-                    "x": 201,
-                    "y": 419,
-                    "type": "particle",
-                    "tweens": {},
-                    "src": "/assets/scene1/particle.png",
-                    "flipX": false,
-                    "flipY": false,
-                    "visible": true,
-                    "load_only": false,
-                    "params": {
-                        "angle": {
-                            "param": "angle",
-                            "min": -80,
-                            "max": -100
+                    name: "particle",
+                    x: 201,
+                    y: 419,
+                    type: "particle",
+                    src: "/assets/scene1/particle.png",
+                    params: {
+                        angle: {
+                            param: "angle",
+                            min: -80,
+                            max: -100
                         },
-                        "speed": {
-                            "param": "speed",
-                            "min": 10,
-                            "max": 100
+                        speed: {
+                            param: "speed",
+                            min: 10,
+                            max: 100
                         },
-                        "scale": {
-                            "param": "scale",
-                            "start": 0.8,
-                            "end": 0.1
+                        scale: {
+                            param: "scale",
+                            start: 0.8,
+                            end: 0.1
                         }
                     },
-                    "blendMode": "SKIP_CHECK",
-                    "frequency": 200
+                    frequency: 200
                 },
                 {
                     name: 'skeleton',

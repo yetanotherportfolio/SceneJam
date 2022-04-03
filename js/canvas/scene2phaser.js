@@ -27,8 +27,6 @@ const Scene2Phaser = {
                 frame_cfg.frameHeight = _h
             }
 
-            console.log(frame_cfg, _w, _h)
-
             // https://photonstorm.github.io/phaser3-docs/Phaser.Loader.LoaderPlugin.html#spritesheet__anchor
             scene.load.spritesheet(
                 get_hash_key(cfg),
