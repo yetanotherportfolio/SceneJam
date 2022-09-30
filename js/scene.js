@@ -21,8 +21,7 @@ const config = {
                             props: {
                                 x: {
                                     param: "x",
-                                    from: 217,
-                                    to: 600,
+                                    value: "600",
                                     ease: "Back.easeInOut",
                                 }
                             },

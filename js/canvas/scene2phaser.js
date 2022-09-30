@@ -127,12 +127,9 @@ const Scene2Phaser = {
                     const tween_cfg = {}
                     Object.assign(tween_cfg, cfg.tweens[tween_id])
                     tween_cfg.targets = asset
-                    tween_cfg[tween_cfg.param] = {}
-                    if (!isNaN(tween_cfg.from)) tween_cfg[tween_cfg.param].from = tween_cfg.from
-                    if (!isNaN(tween_cfg.to)) tween_cfg[tween_cfg.param].to = tween_cfg.to
-                    asset.tweens[tween_id] = scene.tweens.add(tween_cfg)
 
-                    if (cfg.start_tween !== tween_id) { asset.tweens[tween_id].stop() }
+                    if (cfg.start_tween !== tween_id) tween_cfg.paused = true
+                    asset.tweens[tween_id] = scene.tweens.add(tween_cfg)
                 }
             }
             // if (cfg.start_tween) {

@@ -88,8 +88,7 @@ const basics = {
 
             props: new FieldDict({
                 param: new Field(),
-                from: new Field('number', { step: 0.01 }),
-                to: new Field('number', { step: 0.01 }),
+                value: new Field(),
                 ease: new FieldChoice({}, EaseTypes),
             }, 'param'),
 
