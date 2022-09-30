@@ -161,6 +161,7 @@ class UI {
 
     update_asset_from_prop (scene_id, asset_id, prop, value, update_game) {
         const id = prop === 'name' ? value : asset_id
+        console.log("update_asset_from_prop", id, scene_id, asset_id, prop, value, update_game)
 
         if (prop === 'type' || prop === 'name') {
             this.on_activate_asset(scene_id, id)
@@ -175,6 +176,8 @@ class UI {
     }
 
     update_asset (scene_id, asset_id, prop, value, update_game) {
+        console.log("update_asset", scene_id, asset_id, prop, value, update_game)
+
         this.save_state.set_need_save()
         const id = this.sceneCfg.update_asset(scene_id, asset_id, prop, value)
         if (id !== undefined) {

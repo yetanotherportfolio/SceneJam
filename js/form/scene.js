@@ -85,10 +85,14 @@ const basics = {
         // TODO use multi props
         tweens: new FieldDict({
             name: new Field('text', { required: true }),
-            param: new Field(),
-            from: new Field('number', { step: 0.01 }),
-            to: new Field('number', { step: 0.01 }),
-            ease: new FieldChoice({}, EaseTypes),
+
+            props: new FieldDict({
+                param: new Field(),
+                from: new Field('number', { step: 0.01 }),
+                to: new Field('number', { step: 0.01 }),
+                ease: new FieldChoice({}, EaseTypes),
+            }, 'param'),
+
             duration: new Field('number', { min: 0 }, 1000),
             loop: new FieldNumBool(),
             yoyo: new FieldBool({}, false),

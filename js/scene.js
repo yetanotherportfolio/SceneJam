@@ -18,10 +18,14 @@ const config = {
                     tweens: {
                         hide: {
                             name: "hide",
-                            param: "x",
-                            from: 217,
-                            to: 600,
-                            ease: "Back.easeInOut",
+                            props: {
+                                x: {
+                                    param: "x",
+                                    from: 217,
+                                    to: 600,
+                                    ease: "Back.easeInOut",
+                                }
+                            },
                             loop: 0,
                             yoyo: false
                         }

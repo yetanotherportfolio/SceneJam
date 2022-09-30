@@ -251,8 +251,8 @@ export class FieldDict {
         for (const name in this.form) {
             form_copy[name] = this.form[name].copy()
         }
-        const fk = this.forms.length
 
+        const fk = this.forms.length
         this.forms.push(new MagicForm(
             null,
             form_copy,
