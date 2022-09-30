@@ -190,4 +190,9 @@ export default class Game {
     }
 
     remove_scene () {}
+
+    play_tween(asset_id, tween_id) {
+        console.log("play_tween", asset_id, tween_id, this.loaded[asset_id].tweens[tween_id])
+        this.loaded[asset_id].tweens[tween_id].play()
+    }
 }

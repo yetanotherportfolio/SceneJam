@@ -216,6 +216,11 @@ class UI {
         this.scene.render()
         this.game.restart()
     }
+
+    onPlayBtnPressed (form_name, dictIndex, name, elem, event) {
+        const tween_name = this.property.mf.form[form_name].forms[dictIndex].values.name
+        this.game.play_tween(this.property.asset_id, tween_name)
+    }
 }
 
 function init () {

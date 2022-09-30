@@ -92,7 +92,10 @@ const basics = {
             duration: new Field('number', { min: 0 }, 1000),
             loop: new FieldNumBool(),
             yoyo: new FieldBool({}, false),
-            play: new ButtonField('play', function (data) {console.log("pressed!", data)})
+            play: new ButtonField('play', function (form_name, name, elem, event) {
+                const parts = form_name.split('-')
+                ui.onPlayBtnPressed(parts[0], parts[1], name, elem, event)
+            })
         }, 'name'),
         start_tween: new Field()
 

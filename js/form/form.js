@@ -101,6 +101,8 @@ export default class MagicForm {
     validate (elem) {
         const form_values = {}
         for (const name in this.form) {
+            if (this.form[name].validate === undefined) continue
+
             const _value = this.form[name].validate(
                 this.elem ? this.elem : elem, this.form_name, name
             )

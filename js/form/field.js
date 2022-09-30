@@ -272,6 +272,8 @@ export class ButtonField {
         this.text = text
         this.callback = callback
         this.id = null
+        this.form_name = null
+        this.name = null
         this.elem = null
     }
 
@@ -283,11 +285,13 @@ export class ButtonField {
     }
 
     on_pressed (data) {
-        this.callback(data)
+        this.callback(this.form_name, this.name, this.elem, data)
     }
 
     render (form_name, name, value) {
         this.id = `${form_name}-${name}`
+        this.form_name = form_name
+        this.name = name
         return `<p><button id=${this.id}>${this.text}</button></p>`
     }
 
