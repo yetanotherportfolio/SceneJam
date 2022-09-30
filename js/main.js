@@ -161,7 +161,11 @@ class UI {
 
     update_asset_from_prop (scene_id, asset_id, prop, value, update_game) {
         const id = prop === 'name' ? value : asset_id
-        console.log("update_asset_from_prop", id, scene_id, asset_id, prop, value, update_game)
+        console.log(
+            "update_asset_from_prop",
+            id, scene_id, asset_id, prop, value, update_game,
+            this.property.mf.values
+        )
 
         if (prop === 'type' || prop === 'name') {
             this.on_activate_asset(scene_id, id)

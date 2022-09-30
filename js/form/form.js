@@ -21,11 +21,7 @@ export default class MagicForm {
             const form_array_btns = this.elem.querySelectorAll('.form-array-remove')
             form_array_btns.forEach((elem) => {
                 elem.addEventListener('click', (evt) => {
-                    const i = parseInt(evt.target.dataset.arrayI, 10)
-                    const name = evt.target.dataset.arrayName
-                    this.form[name].array_remove(i, this.values[name])
-                    this.render()
-                    this.update_values()
+                    this.on_array_remove(evt, true)
                 })
             })
 
@@ -33,24 +29,7 @@ export default class MagicForm {
             const form_input_elems = this.elem.querySelectorAll('.form-input')
             form_input_elems.forEach((elem) => {
                 elem.addEventListener('change', (evt) => {
-                    const form_name = evt.target.dataset.formName
-                    const input_name = evt.target.dataset.formInputName
-                    this.update_values()
-                    if (this.cb) {
-                        let k = null
-
-                        // FIXME
-                        const splited = form_name.split('-')
-                        if (splited.length > 1) {
-                            const _form_name = splited[0]
-
-                            k = _form_name
-                        } else {
-                            k = input_name
-                        }
-
-                        /* if (old_value != this.values[k]) */this.cb(k, this.values[k])
-                    }
+                    this.on_change(evt)
                 })
             })
         }
@@ -98,6 +77,8 @@ export default class MagicForm {
 
     validate (elem) {
         const form_values = {}
+        if (this.elem === null && elem === undefined) return
+
         for (const name in this.form) {
             if (this.form[name].validate === undefined) continue
 
@@ -110,6 +91,46 @@ export default class MagicForm {
         return form_values
     }
 
+    on_change (evt) {
+        const form_name = evt.target.dataset.formName
+        const input_name = evt.target.dataset.formInputName
+        this.update_values()
+        if (this.cb) {
+            let k = null
+
+            // FIXME
+            const splited = form_name.split('-')
+            if (splited.length > 1) {
+                const _form_name = splited[0]
+
+                k = _form_name
+            } else {
+                k = input_name
+            }
+
+            /* if (old_value != this.values[k]) */this.cb(k, this.values[k])
+        }
+    }
+
+    on_array_remove (evt, update_values) {
+        const i = parseInt(evt.target.dataset.arrayI, 10)
+        const name = evt.target.dataset.arrayName
+        const formName = evt.target.dataset.formName
+
+        if (formName == this.form_name) {
+            this.form[name].array_remove(i, this.values[name])
+        } else {
+            const parts = formName.split('-')
+            this.form[parts[0]].forms[parts[1]].on_array_remove(evt, false)
+
+            this.update_values()
+
+        }
+
+        this.render()
+        this.on_change(evt)
+    }
+
     on_array_add (evt) {
         const arrName = evt.target.dataset.formArrayName
         const formName = evt.target.dataset.formName
@@ -120,7 +141,9 @@ export default class MagicForm {
             const parts = formName.split('-')
             this.form[parts[0]].forms[parts[1]].on_array_add(evt)
         }
+
         this.render()
+        this.on_change(evt)
     }
 
     reset () {

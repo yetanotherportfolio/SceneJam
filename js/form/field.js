@@ -199,7 +199,6 @@ export class FieldDict {
             values.push(_values[k])
         }
 
-        // this.forms = []
         while (this.forms.length < values.length) {
             this.on_array_add(name)
         }
@@ -215,6 +214,7 @@ export class FieldDict {
                     <div>${form_content}</div><div>
                     <button class="form-array-remove"
                             data-array-i="${i}"
+                            data-form-name="${form_name}"
                             data-array-name="${name}">remove</button></div></div>`
         }
 
