@@ -4,8 +4,11 @@ export default class Game {
     constructor (canvas_elem, ui) {
         this.game = new window.Phaser.Game({
             type: window.Phaser.CANVAS,
-            width: '100%',
-            height: '100%',
+            scale: {
+                mode: Phaser.Scale.NONE,
+                width: 500,
+                height: 500,
+            },
             canvas: canvas_elem,
             scene: {
                 preload: () => {
@@ -38,7 +41,10 @@ export default class Game {
         console.log('RESTARTING')
 
         this.loaded = {}
-        this.get_scene().scene.restart()
+        const scene = this.get_scene()
+        if (scene) {
+            scene.scene.restart()
+        }
     }
 
     _add_loaded_asset (cfg, scene) {
@@ -86,9 +92,31 @@ export default class Game {
 
         if (this.base_url) this.get_scene().load.setBaseURL(this.base_url)
 
-        // XXX
+        // get available size
+        const maxW = scene.scale.canvas.parentNode.offsetWidth - 4
+        const maxH = scene.scale.canvas.parentNode.offsetHeight - 4
+        console.log(scene.scale.canvas.parentNode.offsetWidth, scene.scale.canvas.parentNode.offsetHeight, scene.scale.canvas.parentNode)
+
+        // check if smaller than max
         const game_conf = this.ui.sceneCfg.get_game_config()
-        scene.scale.resize(game_conf.width, game_conf.height)
+        const w = parseInt(game_conf.width)
+        const h = parseInt(game_conf.height)
+        if (w <= maxW && h <= maxH) {
+            console.log('resize to', w, h)
+            scene.scale.setGameSize(w, h)
+            scene.scale.setZoom(1)
+        }
+        // if not, zoom out
+        else {
+            scene.scale.setGameSize(game_conf.width, game_conf.height)
+
+            console.log('resize to', 1 / (w / maxW), scene.scale.zoom, game_conf.width, maxW)
+            if (w > h)
+                scene.scale.setZoom(1 / (w / maxW))
+            else
+                scene.scale.setZoom(1 / (h / maxH))
+
+        }
 
         // XXX
         const scene_conf = this.ui.sceneCfg.get_scene_config(this.ui.scene_id)

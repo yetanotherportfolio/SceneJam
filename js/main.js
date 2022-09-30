@@ -224,6 +224,19 @@ function init () {
         var win = window.nw.Window.get()
         win.width = 980
         win.height = 715
+
+        win.on('resize', (width, height) => {
+            console.log('Win resized', width, height)
+            window.ui.game.restart()
+        })
+        win.on('maximize', () => {
+            console.log('Win maximize')
+            window.ui.game.restart()
+        })
+        win.on('minimize', () => {
+            console.log('Win minimize')
+            window.ui.game.restart()
+        })
     }
 
     window.ui = new UI()
