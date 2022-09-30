@@ -89,7 +89,6 @@ export default class MagicForm {
             )
         }
 
-        console.log("1 elem", this.elem)
         if (this.elem) {
             this.elem.innerHTML = form_txt
             this.add_event_handlers()

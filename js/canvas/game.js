@@ -95,22 +95,18 @@ export default class Game {
         // get available size
         const maxW = scene.scale.canvas.parentNode.offsetWidth - 4
         const maxH = scene.scale.canvas.parentNode.offsetHeight - 4
-        console.log(scene.scale.canvas.parentNode.offsetWidth, scene.scale.canvas.parentNode.offsetHeight, scene.scale.canvas.parentNode)
 
         // check if smaller than max
         const game_conf = this.ui.sceneCfg.get_game_config()
         const w = parseInt(game_conf.width)
         const h = parseInt(game_conf.height)
         if (w <= maxW && h <= maxH) {
-            console.log('resize to', w, h)
             scene.scale.setGameSize(w, h)
             scene.scale.setZoom(1)
         }
         // if not, zoom out
         else {
             scene.scale.setGameSize(game_conf.width, game_conf.height)
-
-            console.log('resize to', 1 / (w / maxW), scene.scale.zoom, game_conf.width, maxW)
             if (w > h)
                 scene.scale.setZoom(1 / (w / maxW))
             else
