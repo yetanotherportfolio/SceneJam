@@ -44,12 +44,12 @@ My goal is to make something that would help me/other save times during gamejams
 
 ## TODO
 - Save button
-- tween and anim play now button
 - Debug only flag for asset ( That don't even load it ?)
 - make lib of game micro lib and use it here
 - Global lint cleanup
 - de-doubling file bug
 - move up-down bug
-- deplicate object button
-- windown scale
+- duplicate object button
+- window scale
 - show thumbnail of stuff in bottom asset window
+- add global text style
