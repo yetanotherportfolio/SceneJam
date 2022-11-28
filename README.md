@@ -53,3 +53,7 @@ My goal is to make something that would help me/other save times during gamejams
 - window scale
 - show thumbnail of stuff in bottom asset window
 - add global text style
+- particles, burst test btn
+- particles, fix min can't be 0
+- particles, add start as stopped btn
+- fix auto images reload
