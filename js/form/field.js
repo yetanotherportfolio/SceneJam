@@ -4,7 +4,7 @@ import MagicForm from './form.js'
 export class Field {
     constructor (type, params, value, usedefault) {
         this.type = type || 'text'
-        this.value = value || (this.type == 'number' ? 0 : '')
+        this.value = value || (this.type === 'number' ? 0 : '')
         this.usedefault = usedefault === undefined ? false : usedefault
 
         this.params = {}
@@ -231,8 +231,8 @@ export class FieldDict {
     validate (elem, form_name, name) {
         const values = {}
         for (const k in this.forms) {
-            var val = {}
-            var _values = this.forms[k].validate(elem)
+            const val = {}
+            const _values = this.forms[k].validate(elem)
             for (const l in _values) {
                 const form = this.forms[k].form[l]
                 if (form.usedefault) {

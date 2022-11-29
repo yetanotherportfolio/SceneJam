@@ -49,8 +49,8 @@ export default class Game {
         }
     }
 
-    _add_loaded_asset (cfg, scene) {
-        const asset = Scene2Phaser.add(cfg, scene)
+    _add_loaded_asset (cfg, scene, gameCfg) {
+        const asset = Scene2Phaser.add(cfg, scene, gameCfg)
         if (!asset) return
 
         this.loaded[cfg.name] = asset
@@ -122,9 +122,11 @@ export default class Game {
     create () {
         const scene = this.get_scene()
         const cfgs = this.ui.sceneCfg.get_scene(this.ui.scene_id)
+        const gameCfg = this.ui.sceneCfg.get_game_config()
+
         for (const i in cfgs) {
             const cfg = cfgs[i]
-            this._add_loaded_asset(cfg, scene)
+            this._add_loaded_asset(cfg, scene, gameCfg)
         }
 
         scene.input.on(

@@ -1,7 +1,8 @@
 const config = {
     game: {
         width: 500,
-        height: 500
+        height: 500,
+        textBaseStyle: '{"color": "#111", "fontSize": "42px"}'
     },
     scenes: {
         scene: {
@@ -17,12 +18,12 @@ const config = {
                     src: 'assets/scene1/images/image2.png',
                     tweens: {
                         hide: {
-                            name: "hide",
+                            name: 'hide',
                             props: {
                                 x: {
-                                    param: "x",
-                                    value: "600",
-                                    ease: "Back.easeInOut",
+                                    param: 'x',
+                                    value: '600',
+                                    ease: 'Back.easeInOut'
                                 }
                             },
                             loop: 0,
@@ -40,24 +41,24 @@ const config = {
                     originY: 0.0
                 },
                 {
-                    name: "particle",
+                    name: 'particle',
                     x: 201,
                     y: 419,
-                    type: "particle",
-                    src: "/assets/scene1/particle.png",
+                    type: 'particle',
+                    src: '/assets/scene1/particle.png',
                     params: {
                         angle: {
-                            param: "angle",
+                            param: 'angle',
                             min: -80,
                             max: -100
                         },
                         speed: {
-                            param: "speed",
+                            param: 'speed',
                             min: 10,
                             max: 100
                         },
                         scale: {
-                            param: "scale",
+                            param: 'scale',
                             start: 0.8,
                             end: 0.1
                         }
@@ -87,31 +88,31 @@ const config = {
                     depth: 0,
                     originX: 0.0,
                     originY: 0.0
-                },
+                }
                 // {
                 //     name: 'container1',
                 //     x: 55,
                 //     y: 55,
                 //     type: 'container'
 
-                    // assets: [
-                    //     {
-                    //         name: 'star1',
-                    //         x: 0,
-                    //         y: 0,
-                    //         type: 'image',
-                    //         src: 'assets/scene1/testui/star.png'
-                    //     },
-                    //     {
-                    //         name: 'star2',
-                    //         x: 250,
-                    //         y: 150,
-                    //         type: 'image',
-                    //         src: 'assets/scene1/testui/star.png'
-                    //     }
-                    // ]
+                // assets: [
+                //     {
+                //         name: 'star1',
+                //         x: 0,
+                //         y: 0,
+                //         type: 'image',
+                //         src: 'assets/scene1/testui/star.png'
+                //     },
+                //     {
+                //         name: 'star2',
+                //         x: 250,
+                //         y: 150,
+                //         type: 'image',
+                //         src: 'assets/scene1/testui/star.png'
+                //     }
+                // ]
 
-                    /* tweens: {
+                /* tweens: {
                         "show": {
                             name: "show",
                             param: "x",
@@ -362,8 +363,8 @@ export default class SceneConfig {
     }
 
     reorder_from_list (arr, asset_id, is_up) {
-        var index = -1
-        var asset = null
+        let index = -1
+        let asset = null
         for (const i in arr) {
             if (arr[i].name === asset_id) {
                 index = parseInt(i, 10)

@@ -44,7 +44,7 @@ const Scene2Phaser = {
         return false
     },
 
-    add: function (cfg, scene) {
+    add: function (cfg, scene, gameCfg) {
         if (cfg.load_only) return
 
         let asset = null
@@ -63,7 +63,17 @@ const Scene2Phaser = {
             // const bound = asset.getBounds()
             // asset.setSize(bound.width, bound.height)
         } else if (cfg.type === 'text') {
-            asset = scene.add.text(cfg.x, cfg.y, cfg.text, cfg.style)
+            // https://photonstorm.github.io/phaser3-docs/Phaser.Types.GameObjects.Text.html#.TextStyle
+            const style = Object.assign(
+                {},
+                JSON.parse(gameCfg.textBaseStyle || '{}'),
+                cfg.style
+            )
+            asset = scene.add.text(
+                cfg.x, cfg.y,
+                cfg.text,
+                style
+            )
         } else if (cfg.type === 'particle') {
             asset = scene.add.particles(get_hash_key(cfg))
 
@@ -159,8 +169,6 @@ const Scene2Phaser = {
             if (cfg.start_anim) asset.play(cfg.start_anim)
             else asset.stop()
         } else if (prop === 'text') asset.text = cfg.text
-        // https://photonstorm.github.io/phaser3-docs/Phaser.Types.GameObjects.Text.html#.TextStyle
-        else if (prop === 'style') asset.setStyle(cfg.style)
         else if (prop === 'originX' || prop === 'originY') {
             asset.setOrigin(
                 cfg.originX || 0,

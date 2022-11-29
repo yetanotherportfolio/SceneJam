@@ -136,9 +136,9 @@ export default class PropertyComp extends Component {
 
             properties.push({
                 id: obj.name,
-                scene_id: scene_id,
+                scene_id,
                 name: k,
-                value: value,
+                value,
                 type: input_type
             })
         }
@@ -190,7 +190,7 @@ const property_input_tpl = (prop) => {
             data-assetid="${prop.id}"
             data-propname="${prop.name}"
             data-sceneid="${prop.scene_id}"
-            value="${prop.value}" />`
+            value="${String(prop.value).replaceAll('"', '&quot;')}" />`
     }
 }
 

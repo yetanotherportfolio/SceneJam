@@ -10,7 +10,7 @@ export default class MagicForm {
     add_event_handlers (elem) {
         if (this.elem !== null) {
             // add array elem
-            const form_add_elems = this.elem.querySelectorAll(`.form-array-add`)
+            const form_add_elems = this.elem.querySelectorAll('.form-array-add')
             form_add_elems.forEach((elem) => {
                 elem.addEventListener('click', (evt) => {
                     this.on_array_add(evt)
@@ -117,14 +117,13 @@ export default class MagicForm {
         const name = evt.target.dataset.arrayName
         const formName = evt.target.dataset.formName
 
-        if (formName == this.form_name) {
+        if (formName === this.form_name) {
             this.form[name].array_remove(i, this.values[name])
         } else {
             const parts = formName.split('-')
             this.form[parts[0]].forms[parts[1]].on_array_remove(evt, false)
 
             this.update_values()
-
         }
 
         this.render()
@@ -135,7 +134,7 @@ export default class MagicForm {
         const arrName = evt.target.dataset.formArrayName
         const formName = evt.target.dataset.formName
 
-        if (formName == this.form_name) {
+        if (formName === this.form_name) {
             this.form[arrName].on_array_add(arrName)
         } else {
             const parts = formName.split('-')
