@@ -162,7 +162,7 @@ class UI {
     update_asset_from_prop (scene_id, asset_id, prop, value, update_game) {
         const id = prop === 'name' ? value : asset_id
         console.log(
-            "update_asset_from_prop",
+            'update_asset_from_prop',
             id, scene_id, asset_id, prop, value, update_game,
             this.property.mf.values
         )
@@ -180,7 +180,7 @@ class UI {
     }
 
     update_asset (scene_id, asset_id, prop, value, update_game) {
-        console.log("update_asset", scene_id, asset_id, prop, value, update_game)
+        console.log('update_asset', scene_id, asset_id, prop, value, update_game)
 
         this.save_state.set_need_save()
         const id = this.sceneCfg.update_asset(scene_id, asset_id, prop, value)
@@ -233,7 +233,7 @@ class UI {
 function init () {
     // NW JS
     if (window.nw !== undefined) {
-        var win = window.nw.Window.get()
+        const win = window.nw.Window.get()
         win.width = 980
         win.height = 715
 

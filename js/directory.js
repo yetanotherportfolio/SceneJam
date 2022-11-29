@@ -112,9 +112,9 @@ export default class Directory {
     }
 
     add_file (path, is_dir, full_path) {
-        const splitted = path.split('/')
         let _config = config
 
+        const splitted = path.split('/')
         for (const i in splitted) {
             const _i = parseInt(i, 10)
             const part = splitted[i]
@@ -138,12 +138,11 @@ export default class Directory {
             _config = _config[part]
         }
 
-        if (!is_dir && path == 'scenecfg.json' && !window.ui.save_state.is_loaded) {
+        if (!is_dir && path === 'scenecfg.json' && !window.ui.save_state.is_loaded) {
             console.log('opening', path)
 
             const fs = require('fs')
-
-            fs.readFile(full_path, 'utf8' , (err, data) => {
+            fs.readFile(full_path, 'utf8', (err, data) => {
                 if (err) {
                     console.error(err)
                     return
