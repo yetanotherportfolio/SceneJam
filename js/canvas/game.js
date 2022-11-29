@@ -2,12 +2,13 @@ import Scene2Phaser from './scene2phaser.js'
 
 export default class Game {
     constructor (canvas_elem, ui) {
+        this.restart_count = 0
         this.game = new window.Phaser.Game({
             type: window.Phaser.CANVAS,
             scale: {
                 mode: Phaser.Scale.NONE,
                 width: 500,
-                height: 500,
+                height: 500
             },
             canvas: canvas_elem,
             scene: {
@@ -39,6 +40,7 @@ export default class Game {
 
     restart () {
         console.log('RESTARTING')
+        this.restart_count += 1
 
         this.loaded = {}
         const scene = this.get_scene()
@@ -103,15 +105,9 @@ export default class Game {
         if (w <= maxW && h <= maxH) {
             scene.scale.setGameSize(w, h)
             scene.scale.setZoom(1)
-        }
-        // if not, zoom out
-        else {
+        } else { // if not, zoom out
             scene.scale.setGameSize(game_conf.width, game_conf.height)
-            if (w > h)
-                scene.scale.setZoom(1 / (w / maxW))
-            else
-                scene.scale.setZoom(1 / (h / maxH))
-
+            if (w > h) { scene.scale.setZoom(1 / (w / maxW)) } else { scene.scale.setZoom(1 / (h / maxH)) }
         }
 
         // XXX
@@ -187,7 +183,7 @@ export default class Game {
 
     remove_scene () {}
 
-    play_tween(asset_id, tween_id) {
+    play_tween (asset_id, tween_id) {
         this.loaded[asset_id].tweens[tween_id].play()
     }
 }

@@ -4,7 +4,7 @@ function hash_code (s) {
 
 function get_hash_key (cfg) {
     // return cfg.name + "" + hash_code("" + cfg.src)
-    return cfg.name + '' + hash_code(JSON.stringify(cfg))
+    return cfg.name + '' + window.ui.game.restart_count + hash_code(JSON.stringify(cfg))
 }
 
 const Scene2Phaser = {
