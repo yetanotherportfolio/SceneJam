@@ -56,7 +56,7 @@ export default class Directory {
     get_files (folder) {
         const path = folder.substr(1).split('/')
 
-        var dir = config
+        let dir = config
         for (const i in path) {
             if (path[i] === '') continue
 

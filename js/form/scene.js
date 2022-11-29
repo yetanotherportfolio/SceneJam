@@ -111,8 +111,8 @@ const basics = {
     displayable: {
         flipX: new FieldBool({}, false),
         flipY: new FieldBool({}, false),
-        scaleX: new Field('number', { min: 0, max: 1, step: 0.001 }, 1.0),
-        scaleY: new Field('number', { min: 0, max: 1, step: 0.001 }, 1.0),
+        scaleX: new Field('number', { min: 0, step: 0.001 }, 1.0),
+        scaleY: new Field('number', { min: 0, step: 0.001 }, 1.0),
         alpha: new Field('number', { min: 0, max: 1, step: 0.001 }, 1.0),
         angle: new Field('number', {}, 0),
         depth: new Field('number', {}, 0),
