@@ -57,7 +57,7 @@ const Scene2Phaser = {
         } else if (cfg.type === 'container') {
             asset = scene.add.container(cfg.x, cfg.y)
             for (const i in cfg.assets) {
-                const _asset = this.add(cfg.assets[i], scene)
+                const _asset = this.add(cfg.assets[i], scene, gameCfg)
                 asset.add([_asset])
             }
             // const bound = asset.getBounds()
