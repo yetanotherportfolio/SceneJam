@@ -52,3 +52,10 @@ My goal is to make something that would help me/other save times during gamejams
 - particles, burst test btn
 - particles, fix min can't be 0
 - particles, add start as stopped btn
+- fix not used prop still in json
+- add blender style, drag on x or y axis keybind
+    - Other blender style keybinds? scale and rotate
+- select multiple asset and drag
+- select multiple asset and (un)group keybind
+- ctrl z/y
+- gizmo ? Could be used to move containers
