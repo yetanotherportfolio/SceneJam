@@ -6,7 +6,7 @@ export default class Game {
         this.game = new window.Phaser.Game({
             type: window.Phaser.CANVAS,
             scale: {
-                mode: Phaser.Scale.NONE,
+                mode: window.Phaser.Scale.NONE,
                 width: 500,
                 height: 500
             },
@@ -60,30 +60,12 @@ export default class Game {
             this.loaded[cfg.name].setInteractive({
                 useHandCursor: true
             })
-            scene.input.setDraggable(this.loaded[cfg.name])
         }
 
         this.loaded[cfg.name].on(
             'pointerdown',
             (pointer) => {
-                /* this.ui.update_asset(
-                    this.scene_id, cfg.name,
-                    'name', cfg.name, false
-                ) */
                 this.ui.on_activate_asset(this.ui.scene_id, cfg.name)
-            }
-        )
-    }
-
-    on_asset_drag (pointer, gameObject, dragX, dragY) {
-        gameObject.x = Math.ceil(dragX)
-        gameObject.y = Math.ceil(dragY)
-        this.ui.update_asset_from_game(
-            this.ui.scene_id,
-            gameObject.asset_id,
-            {
-                x: gameObject.x,
-                y: gameObject.y
             }
         )
     }
@@ -91,6 +73,8 @@ export default class Game {
     preload () {
         const scene = this.get_scene()
         scene.load.image('editor-arrows', 'assets/editor/arrows.svg')
+        scene.load.image('editor-gizmo-center', 'assets/editor/gizmo-center.svg')
+        scene.load.image('editor-gizmo-arrow', 'assets/editor/gizmo-arrow.svg')
 
         if (this.base_url) this.get_scene().load.setBaseURL(this.base_url)
 
@@ -128,19 +112,11 @@ export default class Game {
             const cfg = cfgs[i]
             this._add_loaded_asset(cfg, scene, gameCfg)
         }
-
-        scene.input.on(
-            'drag',
-            (pointer, gameObject, dragX, dragY) => {
-                this.on_asset_drag(
-                    pointer, gameObject,
-                    dragX, dragY
-                )
-            }
-        )
     }
 
-    update () {}
+    update () {
+        this.ui.gizmo.updateCanvas()
+    }
 
     update_asset (old_asset_id, new_asset_id, prop) {
         const cfg = this.ui.sceneCfg.get_asset(

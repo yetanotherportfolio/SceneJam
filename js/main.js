@@ -7,13 +7,17 @@ import Directory from './directory.js'
 import Game from './canvas/game.js'
 import init_watcher from './watcher.js'
 import SaveState from './savestate.js'
+import Gizmo from './gizmo.js'
 
 class UI {
     constructor () {
-        this.property = new PropertyComp(this)
-        this.scene = new SceneComp(this)
-        this.tree = new TreeComp(this)
-        this.asset = new AssetComp(this)
+        // HTML Comp
+        this.property = new PropertyComp(this) // list of props on the rights
+        this.scene = new SceneComp(this) // the list of assets on the left
+        this.tree = new TreeComp(this) // list of folders at bottom left
+        this.asset = new AssetComp(this) // list of files bottom
+
+        this.gizmo = new Gizmo(this)
 
         this.sceneCfg = new SceneConfig()
         this.directory = new Directory()
@@ -55,6 +59,7 @@ class UI {
     }
 
     on_activate_asset (scene_id, asset_id, parent) {
+        // when an asset is clicked on
         if (this.scene_id !== scene_id) {
             this.scene_id = scene_id
             this.game.restart()
@@ -73,6 +78,7 @@ class UI {
                 this.sceneCfg.get_asset(scene_id, asset_id)
             )
         }
+        this.gizmo.setMode('drag', asset_id)
         this.scene.render()
     }
 
@@ -161,11 +167,11 @@ class UI {
 
     update_asset_from_prop (scene_id, asset_id, prop, value, update_game) {
         const id = prop === 'name' ? value : asset_id
-        console.log(
-            'update_asset_from_prop',
-            id, scene_id, asset_id, prop, value, update_game,
-            this.property.mf.values
-        )
+        // console.log(
+        //     'update_asset_from_prop',
+        //     id, scene_id, asset_id, prop, value, update_game,
+        //     this.property.mf.values
+        // )
 
         if (prop === 'type' || prop === 'name') {
             this.on_activate_asset(scene_id, id)
