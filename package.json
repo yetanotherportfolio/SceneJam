@@ -1,6 +1,5 @@
 {
   "name": "SceneJam",
-  "product_string": "SceneJam",
   "description": "Simple, engine agnostic, 2d scene editor",
   "version": "0.0.1b",
   "main": "index.html",
@@ -8,11 +7,12 @@
     "test": "npm run lint",
     "debug": "npx serve .",
     "lint": "eslint js/",
-    "dist": "build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ --concurrent ."
+    "dist": "build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ --concurrent .",
+    "dist-mac": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ --concurrent ."
   },
   "build": {
     "appId": "io.github.yetanotherportfolio.scenejam",
-    "nwVersion": "0.51.2",
+    "nwVersion": "0.71.1",
     "packed": false,
     "targets": [
       "zip"
