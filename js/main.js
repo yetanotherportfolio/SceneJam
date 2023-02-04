@@ -65,6 +65,17 @@ class UI {
             this.game.restart()
         }
 
+        // console.log('on_activate_asset', scene_id, asset_id, parent)
+        if (this.property.asset_id === asset_id) {
+            this.property.asset_id = null
+            this.gizmo.setMode('inactive', null)
+            this.property.render(this.scene_id, null)
+            this.scene.render()
+            return
+        } else {
+            this.gizmo.setMode('drag', asset_id)
+        }
+
         if (parent) {
             this.property.render_asset(
                 scene_id, asset_id,
@@ -78,7 +89,7 @@ class UI {
                 this.sceneCfg.get_asset(scene_id, asset_id)
             )
         }
-        this.gizmo.setMode('drag', asset_id)
+
         this.scene.render()
     }
 
@@ -136,12 +147,14 @@ class UI {
         this.save_state.set_need_save()
         this.scene.render()
 
+        this.gizmo.setMode('inactive', null)
         this.game.restart()
     }
 
     add_asset_to_container (scene_id, container_id) {
         this.sceneCfg.add_asset_to_container(scene_id, container_id, 'CHANGE ME')
         this.save_state.set_need_save()
+        this.gizmo.setMode('inactive', null)
         this.scene.render()
         this.game.restart()
     }
@@ -186,13 +199,15 @@ class UI {
     }
 
     update_asset (scene_id, asset_id, prop, value, update_game) {
-        console.log('update_asset', scene_id, asset_id, prop, value, update_game)
+        // console.log('update_asset', scene_id, asset_id, prop, value, update_game)
 
         this.save_state.set_need_save()
         const id = this.sceneCfg.update_asset(scene_id, asset_id, prop, value)
         if (id !== undefined) {
-            this.on_activate_asset(scene_id, id)
-            this.scene.render()
+            this.property.render_asset(
+                scene_id, asset_id,
+                this.sceneCfg.get_asset(scene_id, asset_id)
+            )
 
             if (scene_id === this.scene_id && update_game !== false) {
                 this.game.update_asset(asset_id, id, prop)

@@ -29,7 +29,7 @@ const ParticleParams = [
     'rotate'
 ]
 
-var templates = {
+const templates = {
     anchor: {},
     container: {},
     text: {

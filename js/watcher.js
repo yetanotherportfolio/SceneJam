@@ -37,7 +37,7 @@ class Watcher {
 
     on_file_add (full_path) {
         const short_path = this.get_short_pass(full_path)
-        console.log('on_file_add', short_path)
+        // console.log('on_file_add', short_path)
 
         const fs = require('fs')
         window.ui.directory.add_file(

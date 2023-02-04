@@ -60,6 +60,11 @@ export default class Game {
             this.loaded[cfg.name].setInteractive({
                 useHandCursor: true
             })
+
+            // drag will be handle by gizmo
+            if (cfg.type === 'anchor') {
+                scene.input.setDraggable(this.loaded[cfg.name])
+            }
         }
 
         this.loaded[cfg.name].on(
@@ -112,6 +117,13 @@ export default class Game {
             const cfg = cfgs[i]
             this._add_loaded_asset(cfg, scene, gameCfg)
         }
+
+        scene.input.on(
+            'drag',
+            (pointer, gameObject, dragX, dragY) => {
+                this.ui.gizmo.onDrag(gameObject, pointer.x, pointer.y)
+            }
+        )
     }
 
     update () {

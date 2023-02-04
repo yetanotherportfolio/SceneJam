@@ -88,54 +88,52 @@ const config = {
                     depth: 0,
                     originX: 0.0,
                     originY: 0.0
-                }
-                // {
-                //     name: 'container1',
-                //     x: 55,
-                //     y: 55,
-                //     type: 'container'
+                },
+                {
+                    name: 'container1',
+                    x: 55,
+                    y: 55,
+                    type: 'container',
 
-                // assets: [
-                //     {
-                //         name: 'star1',
-                //         x: 0,
-                //         y: 0,
-                //         type: 'image',
-                //         src: 'assets/scene1/testui/star.png'
-                //     },
-                //     {
-                //         name: 'star2',
-                //         x: 250,
-                //         y: 150,
-                //         type: 'image',
-                //         src: 'assets/scene1/testui/star.png'
-                //     }
-                // ]
-
-                /* tweens: {
-                        "show": {
-                            name: "show",
-                            param: "x",
-                            "from": 100,
-                            "to": 400,
-                            ease: 'Bounce',
-                            duration: 1000,
-                            repeat: -1,
-                            yoyo: false
+                    assets: [
+                        {
+                            name: 'star1',
+                            x: 0,
+                            y: 0,
+                            angle: 10,
+                            scaleX: 0.5,
+                            scaleY: 0.5,
+                            type: 'image',
+                            src: 'assets/scene1/testui/star.png'
                         },
-                        "hide": {
-                            name: "hide",
-                            param: "x",
-                            "from": 400,
-                            "to": 100,
-                            ease: 'Elastic',
-                            duration: 1000,
-                            repeat: 0,
-                            yoyo: false
+                        {
+                            name: 'star2',
+                            x: 50,
+                            y: 50,
+                            angle: 20,
+                            scaleX: 0.5,
+                            scaleY: 0.5,
+                            type: 'image',
+                            src: 'assets/scene1/testui/star.png'
                         }
-                    },
-                    start_tween: "" */
-                // }
+                    ]
+                },
+                {
+                    name: 'anchor1',
+                    x: 460,
+                    y: 40,
+                    type: 'anchor'
+                },
+                {
+                    name: 'text1',
+                    x: 190,
+                    y: 55,
+                    type: 'text',
+                    text: 'TITLE',
+                    style: {
+                        color: '#ff0000'
+                    }
+                }
             ]
         }
     }
