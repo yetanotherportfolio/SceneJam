@@ -84,7 +84,7 @@ const Scene2Phaser = {
             Object.assign(emiterParams, cfg)
             Object.assign(emiterParams, cfg.params)
 
-            asset.createEmitter(emiterParams)
+            asset.emitter = asset.createEmitter(emiterParams)
         }
 
         if (asset) {

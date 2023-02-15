@@ -48,21 +48,17 @@ export default class Gizmo {
         case 'scale':
         {
             const asset = this.ui.game.loaded[target]
-            if (!asset || asset.type === 'anchor' || asset.type === 'container' || asset.type === 'particle') {
+            if (!asset || asset.type === 'anchor') {
                 this.setMode('inactive', null)
                 break
             }
 
             if (this._setMode(mode, target)) {
                 console.log('SET MODE', mode, target)
-                const asset = this.getTarget()
-                const center = asset.getCenter()
                 if (this.sprite === null) {
-                    this.spawnGizmo(center.x, center.y)
-                } /* else {
-                    this.sprite.x = center.x
-                    this.sprite.y = center.y
-                } */
+                    const position = this.getTargetPosition()
+                    this.spawnGizmo(position[0], position[1])
+                }
             }
             break
         }
@@ -110,11 +106,22 @@ export default class Gizmo {
             target = this.getTarget()
             this.lock = gameObject.getData('lock')
             this.offset = gameObject.getData('offset')
-            console.log('offset', this.offset)
         }
 
-        if (!this.lock || this.lock === 'x') target.x = Math.ceil(dragX - target.width / 2) - this.offset[0]
-        if (!this.lock || this.lock === 'y') target.y = Math.ceil(dragY - target.height / 2) - this.offset[1]
+        const newPostion = target.emitter ? [target.emitter.x.propertyValue, target.emitter.y.propertyValue] : [target.x, target.y]
+
+        const w = target.width ? target.width : 0
+        const h = target.height ? target.height : 0
+        if (!this.lock || this.lock === 'x') newPostion[0] = Math.ceil(dragX - w / 2) - this.offset[0]
+        if (!this.lock || this.lock === 'y') newPostion[1] = Math.ceil(dragY - h / 2) - this.offset[1]
+
+        // for particle emitter
+        if (target.emitter && target.emitter.setPosition) {
+            target.emitter.setPosition(newPostion[0], newPostion[1])
+        } else {
+            target.x = newPostion[0]
+            target.y = newPostion[1]
+        }
 
         this.ui.update_asset_from_game(
             this.ui.scene_id,
@@ -126,24 +133,36 @@ export default class Gizmo {
         )
     }
 
+    getTargetPosition (target) {
+        if (target === undefined) target = this.getTarget()
+
+        if (target.emitter) {
+            return [
+                target.emitter.x.propertyValue,
+                target.emitter.y.propertyValue
+            ]
+        } else if (target.getCenter) {
+            const center = target.getCenter()
+            return [center.x, center.y]
+        } else {
+            return [target.x, target.y]
+        }
+    }
+
     getTarget () {
         const asset = this.ui.game.loaded[this.target]
         if (!asset) {
             console.error('Gizmo target not found', this.target)
             return
         }
-
         return asset
     }
 
     updateCanvas () {
         if (!this.isActive()) return
 
-        const target = this.getTarget()
-        if (target && target.getCenter) {
-            const center = target.getCenter()
-            this.sprite.x = center.x
-            this.sprite.y = center.y
-        }
+        const position = this.getTargetPosition()
+        this.sprite.x = position[0]
+        this.sprite.y = position[1]
     }
 }
