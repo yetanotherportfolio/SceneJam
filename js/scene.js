@@ -12,8 +12,8 @@ const config = {
             assets: [
                 {
                     name: 'tower',
-                    x: 217,
-                    y: 170,
+                    x: 375,
+                    y: 320,
                     type: 'image',
                     src: 'assets/scene1/images/image2.png',
                     tweens: {
@@ -37,8 +37,8 @@ const config = {
                     alpha: 1.0,
                     angle: 0,
                     depth: 0,
-                    originX: 0.0,
-                    originY: 0.0
+                    originX: 0.5,
+                    originY: 0.5
                 },
                 {
                     name: 'particle',

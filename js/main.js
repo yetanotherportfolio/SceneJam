@@ -7,7 +7,7 @@ import Directory from './directory.js'
 import Game from './canvas/game.js'
 import init_watcher from './watcher.js'
 import SaveState from './savestate.js'
-import Gizmo from './gizmo.js'
+import Gizmo from './gizmo/manager.js'
 
 class UI {
     constructor () {
@@ -64,16 +64,16 @@ class UI {
             this.scene_id = scene_id
             this.game.restart()
         }
-
         // console.log('on_activate_asset', scene_id, asset_id, parent)
-        if (this.property.asset_id === asset_id) {
+
+        // deactivate if already active
+        if (this.property.asset_id !== asset_id) {
+            this.gizmo.setMode('move', asset_id)
+        } else if (!this.gizmo.setNextMode(asset_id)) {
             this.property.asset_id = null
-            this.gizmo.setMode('inactive', null)
             this.property.render(this.scene_id, null)
             this.scene.render()
             return
-        } else {
-            this.gizmo.setMode('drag', asset_id)
         }
 
         if (parent) {
