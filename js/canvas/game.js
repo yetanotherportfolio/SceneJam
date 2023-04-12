@@ -56,10 +56,18 @@ export default class Game {
         this.loaded[cfg.name] = asset
 
         // TODO
-        if (cfg.type !== 'container') {
+        if (cfg.type === 'container') {
+            for (const i in asset.list) {
+                const subAsset = asset.list[i]
+                subAsset.name = `${cfg.name}-${subAsset.asset_id}`
+                this.loaded[subAsset.name] = subAsset
+            }
+            console.log(this.loaded)
+        } else {
             this.loaded[cfg.name].setInteractive({
                 useHandCursor: true
             })
+            this.loaded[cfg.name].name = cfg.name
 
             // drag will be handle by gizmo
             if (cfg.type === 'anchor') {

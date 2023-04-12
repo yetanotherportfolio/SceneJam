@@ -6,6 +6,7 @@ export default class RotateGizmo {
 
     canBeUsed () {
         const target = this.manager.getTarget()
+        if (target === null || target === undefined) return false
         if (target.type === 'anchor') return false
         if (target.emitter) return false
         return true

@@ -59,14 +59,25 @@ export default class Gizmo {
                 }
 
                 console.log('SET MODE', mode, target)
-                if (this.sprite === null) {
+                if (this.sprite === null || !this.sprite.active || !this.sprite.visible) {
                     const position = this.getTargetPosition()
+                    if (!position) {
+                        console.error('GizmoManager.SetMode - No position found')
+                        return
+                    }
                     this.spawnGizmo(position[0], position[1])
                 } else {
+                    const a = this.sprite.getAt(1)
+                    const b = this.sprite.getAt(2)
+
+                    if (!a || !b) {
+                        return
+                    }
+
                     this._callOnMode(
                         'setArrowAngle',
-                        this.sprite.getAt(1),
-                        this.sprite.getAt(2)
+                        a,
+                        b
                     )
                 }
             }
@@ -91,6 +102,10 @@ export default class Gizmo {
             this.setMode('inactive', null)
             return false
         }
+    }
+
+    getScale (scene) {
+        return scene.scale.gameSize.width / scene.scale.displaySize.width
     }
 
     spawnGizmo (x, y) {
@@ -119,6 +134,10 @@ export default class Gizmo {
         scene.input.setDraggable(arrowHor)
         this.sprite.add(arrowHor)
 
+        // scale the whole thing
+        this.sprite.setScale(this.getScale(scene))
+        this.sprite.depth = Number.MAX_SAFE_INTEGER - 2
+
         this._callOnMode('setArrowAngle', arrowVert, arrowHor)
     }
 
@@ -128,6 +147,9 @@ export default class Gizmo {
 
     getTargetPosition (target) {
         if (target === undefined) target = this.getTarget()
+        if (target === undefined) {
+            return
+        }
 
         if (target.emitter) {
             return [
@@ -145,7 +167,7 @@ export default class Gizmo {
     getTarget () {
         const asset = this.ui.game.loaded[this.target]
         if (!asset) {
-            console.error('Gizmo target not found', this.target)
+            // console.error('Gizmo target not found', this.target)
             return
         }
         return asset
@@ -158,10 +180,12 @@ export default class Gizmo {
     }
 
     updateCanvas () {
-        if (!this.isActive()) return
+        if (!this.isActive() || !this.sprite) return
 
         const position = this._callOnMode('getGizmoPoint')
-        this.sprite.x = position[0]
-        this.sprite.y = position[1]
+        if (position) {
+            this.sprite.x = position[0]
+            this.sprite.y = position[1]
+        }
     }
 }

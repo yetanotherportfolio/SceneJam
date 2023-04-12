@@ -66,10 +66,14 @@ class UI {
         }
         // console.log('on_activate_asset', scene_id, asset_id, parent)
 
+        const fullName = parent ? `${parent}-${asset_id}` : asset_id
+
         // deactivate if already active
-        if (this.property.asset_id !== asset_id) {
-            this.gizmo.setMode('move', asset_id)
-        } else if (!this.gizmo.setNextMode(asset_id)) {
+        if (!this.property.asset_id) {
+            this.gizmo.setMode('inactive', fullName)
+        } else if (this.property.asset_id !== asset_id) {
+            this.gizmo.setMode('move', fullName)
+        } else if (!this.gizmo.setNextMode(fullName)) {
             this.property.asset_id = null
             this.property.render(this.scene_id, null)
             this.scene.render()
